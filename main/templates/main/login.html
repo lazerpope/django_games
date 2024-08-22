@@ -1,0 +1,18 @@
+{% extends 'main/menu/wrapper.html' %}
+
+{% block content %}
+  <div>
+    <form method="post" action="">
+      {% csrf_token %}
+      <p>Логин</p>
+      <input type="text" name="username" placeholder="Логин" />
+      <p>Пароль</p>
+      <input type="text" name="password" placeholder="Пароль" />
+      <input type="submit" value="Вход" />
+    </form>
+    <div>
+      <span>Нет аккаунта?</span> 
+      <a href="{% url 'register' %}">Зарегистрироваться</a>
+    </div>
+  </div>
+{% endblock %}

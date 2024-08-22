@@ -1,0 +1,15 @@
+{% extends 'main/menu/wrapper.html' %}
+
+{% block content %}
+  <div>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{form.as_div}}
+      <input type="submit" value="Вход" />
+    </form>
+    <div>
+      <span>Уже зарегистрированы?</span> 
+      <a href="{% url 'login' %}">Вход</a>
+    </div>
+  </div>
+{% endblock %}

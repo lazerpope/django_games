@@ -1,0 +1,58 @@
+{% extends 'main/menu/wrapper.html' %}
+
+{% block content %}
+
+    <div class="connect-container">
+
+        <form action="" method="post">
+            <input type="text" name="token" placeholder="Введите токен игры...">
+            <input type="submit" value="Присоединиться">
+        </form>
+
+    </div>
+
+  <div class="game-container">
+    {% for game in games %}
+     
+
+       <button onclick=startGame({{game.id}})>{{game.name}}</button>
+
+      </div>
+    {% endfor %}
+
+
+
+
+
+  </div>
+
+
+  <script>
+    function startGame(a){
+        fetch('{% url "home" %}', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'  // Include the CSRF token
+            },
+            body: a
+        })
+        .then(response => {
+            window.location.href = response.url
+        })
+        
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error, e.g., display an error message
+        });
+    }
+
+   
+
+</script>
+
+
+{% endblock %}
+
+<style></style>
+
+

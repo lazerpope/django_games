@@ -1,0 +1,28 @@
+<menu>
+  <a href="{% url 'home' %}">home</a>
+  {% comment %} <a href="{% url 'start_new_game' %}">start new game</a> {% endcomment %}
+
+   {% if request.user.is_authenticated %}
+    <span>
+      Добро пожаловать,
+      {{ request.user.username }}
+    </span>
+    <a href="{% url 'logout' %}">выход</a>
+  {% else %}
+    <a href="{% url 'login' %}">вход</a>
+    <a href="{% url 'register' %}">регистрация</a>
+  {% endif %} 
+</menu>
+
+
+<style>
+  menu{
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid;
+    gap: 1rem;
+  }
+</style>

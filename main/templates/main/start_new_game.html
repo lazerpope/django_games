@@ -1,0 +1,47 @@
+{% extends 'main/menu/wrapper.html' %}
+
+{% block content %}
+  <div class="match-info-container">
+    <h2 id="status">{{ message }}</h2>
+
+    <p>{{ match_obj.opponent }}</p>
+    <p>Попросите второго игрока ввести токен на главной странице {{ match_obj.token }}</p>
+    <p>
+      или отправьте ему ссылку
+      <span class="gray"><span id="link-insert"></span>{% url "connect_to_game" match_obj.token  %}
+      <button id="copyButton">Скопировать ссылку</button>
+    </span>
+      
+    </p>
+  </div>
+
+  <script>
+    let url = `ws://${window.location.host}/ws/socket-server`
+    document.getElementById('link-insert').innerHTML = window.location.host
+    const chatSocket = new WebSocket(url)
+    chatSocket.onmessage = function (e) {
+      let data = JSON.parse(e.data)
+      console.log('data:', data)
+    }
+
+
+    
+
+    document.getElementById('copyButton').addEventListener('click', function() {
+        // Select the text input element
+        const textToCopy = window.location.host +  "{% url "connect_to_game" match_obj.token  %}";
+
+        // Copy the text inside the text field to the clipboard
+        navigator.clipboard.writeText(textToCopy)
+    });
+
+
+  </script>
+
+  <style>
+    .gray {
+      padding: 4px;
+      background-color: gray;
+    }
+  </style>
+{% endblock %}
