@@ -33,19 +33,13 @@ class Match(models.Model):
         return f"{self.game.name} match between {self.owner.username} and {opponent}"
 
 
-class TicTacToe(models.Model):
-    match = models.OneToOneField(Match, on_delete=models.CASCADE, primary_key=True)
-    # Additional fields specific to TicTacToe
-    board_state = models.CharField(max_length=9, default=" " * 9)  # Simplistic representation
 
-    def __str__(self):
-        return f"TicTacToe Match {self.match}"
 
-class RockPaperScissors(models.Model):
-    match = models.OneToOneField(Match, on_delete=models.CASCADE, primary_key=True)
-    # Additional fields specific to RockPaperScissors
-    player1_choice = models.CharField(max_length=10)
-    player2_choice = models.CharField(max_length=10)
+# class RockPaperScissors(models.Model):
+#     match = models.OneToOneField(Match, on_delete=models.CASCADE, primary_key=True)
+#     # Additional fields specific to RockPaperScissors
+#     player1_choice = models.CharField(max_length=10)
+#     player2_choice = models.CharField(max_length=10)
 
-    def __str__(self):
-        return f"RockPaperScissors Match {self.match}"
+#     def __str__(self):
+#         return f"RockPaperScissors Match {self.match}"

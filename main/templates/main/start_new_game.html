@@ -4,20 +4,53 @@
   <div class="match-info-container">
     <h2 id="status">{{ message }}</h2>
 
-    <p>{{ match_obj.opponent }}</p>
+
+   
+    <p> Матч  {{match_obj.owner}} против 
+      {% if   match_obj.opponent %}
+      {{ match_obj.opponent }}
+      
+      {% else %}
+      не определено
+      {% endif %}
+    
+    </p>
+    {% if match_obj.owner and match_obj.opponent %}
+      Игра началась
+    {% else %}
     <p>Попросите второго игрока ввести токен на главной странице {{ match_obj.token }}</p>
     <p>
       или отправьте ему ссылку
       <span class="gray"><span id="link-insert"></span>{% url "connect_to_game" match_obj.token  %}
       <button id="copyButton">Скопировать ссылку</button>
     </span>
-      
+
+
+    <script>
+      try{
+        document.getElementById('link-insert').innerHTML = window.location.host
+  
+        document.getElementById('copyButton').addEventListener('click', function() {
+          // Select the text input element
+          const textToCopy = window.location.host +  "{% url "connect_to_game" match_obj.token  %}";
+  
+          // Copy the text inside the text field to the clipboard
+          navigator.clipboard.writeText(textToCopy)
+      });
+  
+      }
+      catch{}
+  
+    </script>
+    
+    {% endif %}
     </p>
   </div>
 
   <script>
-    let url = `ws://${window.location.host}/ws/socket-server`
-    document.getElementById('link-insert').innerHTML = window.location.host
+   
+
+    let url = `ws://${window.location.host}/ws/ttt/connect`
     const chatSocket = new WebSocket(url)
     chatSocket.onmessage = function (e) {
       let data = JSON.parse(e.data)
@@ -27,14 +60,7 @@
 
     
 
-    document.getElementById('copyButton').addEventListener('click', function() {
-        // Select the text input element
-        const textToCopy = window.location.host +  "{% url "connect_to_game" match_obj.token  %}";
-
-        // Copy the text inside the text field to the clipboard
-        navigator.clipboard.writeText(textToCopy)
-    });
-
+   
 
   </script>
 

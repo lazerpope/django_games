@@ -9,5 +9,5 @@ admin.site.register(Match)
 admin.site.register(Game)
 
 
-admin.site.register(TicTacToe)
-admin.site.register(RockPaperScissors)
+
+# admin.site.register(RockPaperScissors)
